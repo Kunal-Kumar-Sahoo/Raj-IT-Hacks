@@ -13,10 +13,10 @@ def signup():
 @app.route('/login', methods=['POST'])
 def login():
     request_data = request.get_json()
-    passwd_json = queries.login(request_data)
+    passwd_json = queries.sign_in(request_data)
     return {
         "authenticated": passwd_json['password'] == request_data['password'],
-        "role": queries.get_role(request_data['email_id']) if passwd_json['password'] == request_data['password'] else -1
+        "role": queries.get_role(request_data['email']) if passwd_json['password'] == request_data['password'] else -1
     }
 
 if __name__ == '__main__':
