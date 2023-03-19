@@ -1,3 +1,5 @@
+DROP DATABASE RAJITHACKS;
+
 CREATE DATABASE RAJITHACKS;
 
 USE RAJITHACKS;
@@ -7,16 +9,20 @@ CREATE TABLE startup(
       place VARCHAR(30) NOT NULL,
       domain VARCHAR(30) NOT NULL,
       description TEXT NOT NULL,
+      email_id TEXT NOT NULL CHECK ( email_id LIKE '%@%.%' ),
       funding INTEGER,
       valuation INTEGER,
       future_plans TEXT,
-      risk CHAR NOT NULL
+      risk CHAR NOT NULL,
+      FOREIGN KEY (email_id) REFERENCES users(email_id)
 );
 
 CREATE TABLE people(
     account_no VARCHAR(10) PRIMARY KEY,
+    email_id TEXT NOT NULL CHECK ( email_id LIKE '%@%.%' ),
     name VARCHAR(30) NOT NULL,
-    balance DOUBLE NOT NULL
+    balance DOUBLE NOT NULL,
+    FOREIGN KEY (email_id) REFERENCES users(email_id);
 );
 
 CREATE TABLE fundpool (
@@ -27,3 +33,10 @@ CREATE TABLE fundpool (
     FOREIGN KEY (account_no) REFERENCES people(account_no),
     FOREIGN KEY (name) REFERENCES startup(name)
 );
+
+CREATE TABLE users (
+    email_id TEXT PRIMARY KEY CHECK ( email_id LIKE '%@%.%' ),
+    password TEXT NOT NULL,
+    role CHAR NOT NULL
+);
+
