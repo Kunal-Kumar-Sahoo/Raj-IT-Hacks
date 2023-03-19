@@ -71,8 +71,31 @@ def get_role(email_id) -> str:
         role = row[0]
     return role
 
+def get_balance(email_id):
+    query = f'SELECT balance FROM people WHERE email_id="{email_id}"'
+    cursor.execute(query)
+    balance = cursor.fetchall()
+    return balance[0][0]
+
+def update_balance(email_id, amount) -> None:
+    balance = get_balance(email_id)
+    query = f'UPDATE people SET balance = {amount} WHERE email_id = "{email_id}"'
+    cursor.execute(query)
+    connection.commit()
+
+def update_pool_investment(email_id, amount) -> None:
+    balance = get_balance(email_id)
+    query = f'SELECT pool_investment FROM people WHERE email_id="{email_id}"'
+    cursor.execute(query)
+    pool_investment = cursor.fetchall()[0][0]
+    update_balance(email_id, balance-amount)
+    query = f'UPDATE people SET pool_investment = {pool_investment+amount} WHERE email_id = "{email_id}"'
+    cursor.execute(query)
+    connection.commit()
 
 
 if __name__ == '__main__':
-    create_new_user({'email': 'manentia@manentia.com', 'password': 'manentia', 'role': 'startup'})
-    print('entry added')
+    print(get_balance('lily_h@gmail.com'))
+    update_balance('lily_h@gmail.com', 400)
+    update_pool_investment('lily_h@gmail.com', 100)
+
