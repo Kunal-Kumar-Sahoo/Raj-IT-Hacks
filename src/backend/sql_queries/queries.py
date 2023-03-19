@@ -93,9 +93,12 @@ def update_pool_investment(email_id, amount) -> None:
     cursor.execute(query)
     connection.commit()
 
+def get_invested_amount(email_id):
+    query = f"SELECT invested_amount FROM people WHERE email_id='{email_id}'"
+    cursor.execute(query)
+    invested_amt = cursor.fetchall()[0][0]
+    print(invested_amt)
 
 if __name__ == '__main__':
-    print(get_balance('lily_h@gmail.com'))
-    update_balance('lily_h@gmail.com', 400)
-    update_pool_investment('lily_h@gmail.com', 100)
+    # print(get_invested_amount())
 

@@ -34,8 +34,14 @@ def pool_investment():
             print('Insufficient funds')
     except Exception as e:
         print(e)
-    
 
+
+@app.route('/pool_returns')
+def pool_returns():
+    request_data = request.get_json()
+    email_id = request_data['email']
+    invested_amount = queries.get_invested_amount(email_id)
+    return {'email': email_id, 'returns': 1.5 * invested_amount if invested_amount > 0 else 0}
 
 if __name__ == '__main__':
     app.run()
