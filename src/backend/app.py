@@ -1,13 +1,23 @@
-from flask import Flask
+from flask import Flask, request, redirect
+import sql_queries.queries as queries
+
 
 app = Flask(__name__)
 
+@app.route('/signup', methods=['POST'])
+def signup():
+    request_data = request.get_json()
+    queries.create_new_user(request_data)
+    return request_data
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 @app.route('/')
 def index() -> None:
     return 'Raj IT Hacks 2.0'
 =======
+=======
+>>>>>>> 1e83bf0d526e2e92f2f26b86e1228eae68042c4f
 @app.route('/login', methods=['POST'])
 def login():
     request_data = request.get_json()
@@ -34,6 +44,7 @@ def pool_investment():
         print(e)
 
 
+<<<<<<< HEAD
 @app.route('/pool_returns', methods=['POST'])
 def pool_returns():
     request_data = request.get_json()
@@ -47,6 +58,14 @@ def pool_returns():
 
 
 >>>>>>> Stashed changes
+=======
+@app.route('/pool_returns')
+def pool_returns():
+    request_data = request.get_json()
+    email_id = request_data['email']
+    invested_amount = queries.get_invested_amount(email_id)
+    return {'email': email_id, 'returns': 1.5 * invested_amount if invested_amount > 0 else 0}
+>>>>>>> 1e83bf0d526e2e92f2f26b86e1228eae68042c4f
 
 if __name__ == '__main__':
     app.run()

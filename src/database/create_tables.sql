@@ -18,7 +18,10 @@ CREATE TABLE startup(
       funding INTEGER,
       valuation INTEGER,
       future_plans TEXT,
+<<<<<<< HEAD
       revenue INTEGER DEFAULT 0,
+=======
+>>>>>>> 1e83bf0d526e2e92f2f26b86e1228eae68042c4f
       risk CHAR NOT NULL,
       FOREIGN KEY (email_id) REFERENCES users(email_id)
 );
