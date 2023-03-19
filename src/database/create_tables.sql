@@ -25,15 +25,16 @@ CREATE TABLE startup(
 );
 
 CREATE TABLE people(
-    account_no VARCHAR(10) PRIMARY KEY,
+    account_no INTEGER AUTO_INCREMENT,
     email_id VARCHAR(100) NOT NULL CHECK ( email_id LIKE '%@%.%' ),
     name VARCHAR(30) NOT NULL,
     balance DOUBLE NOT NULL,
+    PRIMARY KEY(account_no),
     FOREIGN KEY (email_id) REFERENCES users(email_id)
 );
 
 CREATE TABLE fundpool (
-    account_no VARCHAR(10) NOT NULL,
+    account_no INTEGER NOT NULL,
     name VARCHAR(30) NOT NULL,
     invested_amount INTEGER NOT NULL,
     PRIMARY KEY (account_no, name),
