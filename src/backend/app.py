@@ -1,11 +1,23 @@
-from flask import Flask
+from flask import Flask, request, redirect
+import sql_queries.queries as queries
+
 
 app = Flask(__name__)
 
+@app.route('/signup', methods=['POST'])
+def signup():
+    request_data = request.get_json()
+    queries.create_new_user(request_data)
+    return request_data
 
-@app.route('/')
-def index() -> None:
-    return 'Raj IT Hacks 2.0'
+@app.route('/login', methods=['POST'])
+def login():
+    request_data = request.get_json()
+    passwd_json = queries.login(request_data)
+    return {
+        "authenticated": passwd_json['password'] == request_data['password'],
+        "role": queries.get_role(request_data['email_id']) if passwd_json['password'] == request_data['password'] else -1
+    }
 
 if __name__ == '__main__':
     app.run()

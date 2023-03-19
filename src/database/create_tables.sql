@@ -22,7 +22,7 @@ CREATE TABLE people(
     email_id TEXT NOT NULL CHECK ( email_id LIKE '%@%.%' ),
     name VARCHAR(30) NOT NULL,
     balance DOUBLE NOT NULL,
-    FOREIGN KEY (email_id) REFERENCES users(email_id);
+    FOREIGN KEY (email_id) REFERENCES users(email_id)
 );
 
 CREATE TABLE fundpool (
