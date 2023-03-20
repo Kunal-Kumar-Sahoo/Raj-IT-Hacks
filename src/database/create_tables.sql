@@ -33,3 +33,9 @@ CREATE TABLE people(
     PRIMARY KEY(account_no),
     FOREIGN KEY (email_id) REFERENCES users(email_id)
 );
+
+CREATE TABLE investors(
+    name VARCHAR(30) PRIMARY KEY,
+    successful_startups TEXT NOT NULL,
+    investment INTEGER DEFAULT 0
+);
