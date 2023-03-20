@@ -92,7 +92,7 @@ def update_pool_investment(email_id, amount) -> None:
     connection.commit()
 
 def get_invested_amount(email_id):
-    query = f"SELECT invested_amount FROM people WHERE email_id='{email_id}'"
+    query = f"SELECT pool_investment FROM people WHERE email_id='{email_id}'"
     cursor.execute(query)
     return cursor.fetchall()[0][0]
     

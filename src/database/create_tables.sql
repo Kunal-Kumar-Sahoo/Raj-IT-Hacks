@@ -33,14 +33,3 @@ CREATE TABLE people(
     PRIMARY KEY(account_no),
     FOREIGN KEY (email_id) REFERENCES users(email_id)
 );
-
-
-
--- CREATE TABLE fundpool (
---     account_no INTEGER NOT NULL,
---     name VARCHAR(30) NOT NULL,
---     invested_amount INTEGER NOT NULL,
---     PRIMARY KEY (account_no, name),
---     FOREIGN KEY (account_no) REFERENCES people(account_no),
---     FOREIGN KEY (name) REFERENCES startup(name)
--- );
