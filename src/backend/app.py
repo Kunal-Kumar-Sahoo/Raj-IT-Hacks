@@ -75,7 +75,11 @@ def submit_problem():
     '''
     request_data = request.get_json()
     problem_description = request_data['problem']
-    queries.write_problem(problem_description);
+    queries.write_problem(problem_description)
+
+
+@app.route('/get_problems', methods=['GET'])
+def get_problems():
     
 
 if __name__ == '__main__':

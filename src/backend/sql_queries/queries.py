@@ -107,10 +107,15 @@ def write_problem(problem):
     query = f'INSERT INTO problems(problem_description) VALUES ("{problem}")'
     cursor.execute(query)
     connection.commit()
-
     return 200
-    
+
+def collect_problems():
+    query =f'SELECT problem_description FROM problems'
+    cursor.execute(query)
+    results = cursor.fetchall()
+    return [list(result) for result in results]
+
 
 if __name__ == '__main__':
-    # print(get_invested_amount())
-    pass
+    print(collect_problems())
+    
