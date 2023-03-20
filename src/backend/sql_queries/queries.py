@@ -44,8 +44,7 @@ def create_new_user(input_json) -> None:
         query_ = f"INSERT INTO people(email_id, name, balance) VALUES('{email_id}', '{name}', {balance})"
         cursor.execute(query_)
         connection.commit()
-    
-    
+
 
 def sign_in(input_json) -> dict:
     '''
@@ -78,7 +77,6 @@ def get_balance(email_id):
     return balance[0][0]
 
 def update_balance(email_id, amount) -> None:
-    balance = get_balance(email_id)
     query = f'UPDATE people SET balance = {amount} WHERE email_id = "{email_id}"'
     cursor.execute(query)
     connection.commit()
@@ -96,9 +94,9 @@ def update_pool_investment(email_id, amount) -> None:
 def get_invested_amount(email_id):
     query = f"SELECT invested_amount FROM people WHERE email_id='{email_id}'"
     cursor.execute(query)
-    invested_amt = cursor.fetchall()[0][0]
-    print(invested_amt)
+    return cursor.fetchall()[0][0]
+    
 
 if __name__ == '__main__':
     # print(get_invested_amount())
-
+    pass

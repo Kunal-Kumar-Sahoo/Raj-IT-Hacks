@@ -36,12 +36,16 @@ def pool_investment():
         print(e)
 
 
-@app.route('/pool_returns')
+@app.route('/pool_returns', methods=['POST'])
 def pool_returns():
     request_data = request.get_json()
     email_id = request_data['email']
+    no_of_days = request_data['no_of_days']
     invested_amount = queries.get_invested_amount(email_id)
-    return {'email': email_id, 'returns': 1.5 * invested_amount if invested_amount > 0 else 0}
+    invested_amount = invested_amount if invested_amount > 0 else 0
+    balance = queries.get_balance(email_id)
+    queries.update_balance(email_id, balance + invested_amount + invested_amount * no_of_days / 2)
+    queries.update_pool_investment(email_id, -invested_amount)
 
 if __name__ == '__main__':
     app.run()
