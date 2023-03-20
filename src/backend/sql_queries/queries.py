@@ -103,8 +103,8 @@ def get_predicted_amount(email_id):
     funding = cursor.fetchall()[0][0]
     return funding
 
-def write_problem(problem):
-    query = f'INSERT INTO problems(problem_description) VALUES ("{problem}")'
+def write_problem(problem, location):
+    query = f'INSERT INTO problems(problem_description, problem_location) VALUES ("{problem}", "{location}")'
     cursor.execute(query)
     connection.commit()
     return 200
@@ -113,9 +113,13 @@ def collect_problems():
     query =f'SELECT problem_description FROM problems'
     cursor.execute(query)
     results = cursor.fetchall()
-    return [list(result) for result in results]
+    # print(results)
+    documents = [document[0] for document in results]
+    return [list(result) for result in results], documents
 
 
 if __name__ == '__main__':
-    print(collect_problems())
+    list_, doc_ = collect_problems()
+    print(list_)
+    print(doc_)
     

@@ -1,8 +1,11 @@
 from flask import Flask, request, redirect
 import sql_queries.queries as queries
+from flask_cors import CORS
 
 
 app = Flask(__name__)
+
+cors = CORS(app)
 
 @app.route('/registerStartup', methods=['POST'])
 def signup_startup():
@@ -70,12 +73,14 @@ def submit_problem():
     '''
     :json_param:
     {
-        "problem": problem_desc
+        "problem": problem_desc,
+        "location": problem_loc
     }
     '''
     request_data = request.get_json()
     problem_description = request_data['problem']
-    queries.write_problem(problem_description)
+    problem_location = request_data['location']
+    queries.write_problem(problem_description, problem_location)
 
 if __name__ == '__main__':
     app.run()
