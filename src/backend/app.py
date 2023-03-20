@@ -13,7 +13,7 @@ def signup():
 @app.route('/login', methods=['POST'])
 def login():
     request_data = request.get_json()
-    passwd_json = queries.sign_in(request_data)
+    passwd_json = queries.get_password(request_data)
     return {
         "authenticated": passwd_json['password'] == request_data['password'],
         "role": queries.get_role(request_data['email']) if passwd_json['password'] == request_data['password'] else -1
@@ -34,6 +34,9 @@ def pool_investment():
             print('Insufficient funds')
     except Exception as e:
         print(e)
+    return {
+        'email': email_id, 'balance': queries.get_balance(email_id), 'pool_investment': queries.get_invested_amount(email_id)
+    }
 
 
 @app.route('/pool_returns', methods=['POST'])
@@ -46,6 +49,15 @@ def pool_returns():
     balance = queries.get_balance(email_id)
     queries.update_balance(email_id, balance + invested_amount + invested_amount * no_of_days / 2)
     queries.update_pool_investment(email_id, -invested_amount)
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    request_data = request.get_json()
+    email_id = request_data['email']
+    funding = queries.get_predicted_amount(email_id)
+    print({'email': email_id, 'returns': funding/4 if funding > 0 else 0})
+    return {'email': email_id, 'returns': funding/4 if funding > 0 else 0}
+
 
 if __name__ == '__main__':
     app.run()

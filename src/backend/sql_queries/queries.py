@@ -31,10 +31,11 @@ def create_new_user(input_json) -> None:
         description = input_json['description']
         funding = input_json['funding']
         valuation = input_json['valuation']
+        revenue = input_json['revenue']
         future_plans = input_json['future_plans']
         risk = input_json['risk'].lower()[0]
 
-        query_ = f"INSERT INTO startup VALUES('{name}', '{place}', '{domain}', '{description}', '{email_id}', {funding}, {valuation}, '{future_plans}', '{risk}')"
+        query_ = f"INSERT INTO startup(name, place, domain, description, email_id, funding, valuation, revenue, future_plans, risk) VALUES('{name}', '{place}', '{domain}', '{description}', '{email_id}', {funding}, {valuation}, {revenue}, '{future_plans}', '{risk}')"
         cursor.execute(query_)
         connection.commit()
     
@@ -46,7 +47,7 @@ def create_new_user(input_json) -> None:
         connection.commit()
 
 
-def sign_in(input_json) -> dict:
+def get_password(input_json) -> dict:
     '''
     :format input_json:
     {
@@ -95,6 +96,12 @@ def get_invested_amount(email_id):
     query = f"SELECT pool_investment FROM people WHERE email_id='{email_id}'"
     cursor.execute(query)
     return cursor.fetchall()[0][0]
+
+def get_predicted_amount(email_id):
+    query = f"SELECT funding FROM startup WHERE email_id = '{email_id}'"
+    cursor.execute(query)
+    funding = cursor.fetchall()[0][0]
+    return funding
     
 
 if __name__ == '__main__':
