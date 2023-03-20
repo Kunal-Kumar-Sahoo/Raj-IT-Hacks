@@ -7,7 +7,7 @@ connection = mysql.connector.connect(
 
 cursor = connection.cursor()
 
-def create_new_user(input_json) -> None:
+def create_new_user(input_json, role_) -> None:
     '''
     :format input_json:
     {
@@ -19,7 +19,7 @@ def create_new_user(input_json) -> None:
     '''
     email_id = input_json['email']
     password = input_json['password']
-    role = input_json['role'].lower()[0]
+    role = role_
     name = input_json['name']
     query = f"INSERT INTO users VALUES('{email_id}', '{password}', '{role}')"
     cursor.execute(query)
@@ -27,7 +27,7 @@ def create_new_user(input_json) -> None:
 
     if role == 's':
         place = input_json['place']
-        domain = input_json['place']
+        domain = input_json['domain']
         description = input_json['description']
         funding = input_json['funding']
         valuation = input_json['valuation']
@@ -102,6 +102,13 @@ def get_predicted_amount(email_id):
     cursor.execute(query)
     funding = cursor.fetchall()[0][0]
     return funding
+
+def write_problem(problem):
+    query = f'INSERT INTO problems(problem_description) VALUES ("{problem}")'
+    cursor.execute(query)
+    connection.commit()
+
+    return 200
     
 
 if __name__ == '__main__':

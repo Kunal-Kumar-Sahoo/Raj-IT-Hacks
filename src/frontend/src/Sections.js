@@ -1,3 +1,5 @@
+import React from "react";
+
 import Link from "react-scroll/modules/components/Link";
 
 const Sections = () => {

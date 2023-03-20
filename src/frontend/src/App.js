@@ -1,3 +1,5 @@
+import React from "react";
+
 import Header from "./Header";
 import Landingpage from "./Landingpage";
 import Footer from "./Footer";

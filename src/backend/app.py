@@ -4,10 +4,16 @@ import sql_queries.queries as queries
 
 app = Flask(__name__)
 
-@app.route('/signup', methods=['POST'])
-def signup():
+@app.route('/registerStartup', methods=['POST'])
+def signup_startup():
     request_data = request.get_json()
-    queries.create_new_user(request_data)
+    queries.create_new_user(request_data, 's')
+    return request_data
+
+@app.route('/registerPeople', methods=['POST'])
+def signup_person():
+    request_data = request.get_json()
+    queries.create_new_user(request_data, 'p')
     return request_data
 
 @app.route('/login', methods=['POST'])
@@ -58,6 +64,19 @@ def predict():
     print({'email': email_id, 'returns': funding/4 if funding > 0 else 0})
     return {'email': email_id, 'returns': funding/4 if funding > 0 else 0}
 
+
+@app.route('/submit_problem', methods=['POST'])
+def submit_problem():
+    '''
+    :json_param:
+    {
+        "problem": problem_desc
+    }
+    '''
+    request_data = request.get_json()
+    problem_description = request_data['problem']
+    queries.write_problem(problem_description);
+    
 
 if __name__ == '__main__':
     app.run()
