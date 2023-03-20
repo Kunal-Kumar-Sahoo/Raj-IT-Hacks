@@ -17,6 +17,7 @@ CREATE TABLE startup(
       email_id varchar(30) NOT NULL CHECK ( email_id LIKE '%@%.%' ),
       funding INTEGER,
       valuation INTEGER,
+      revenue INTEGER DEFAULT 0,
       future_plans TEXT,
       risk CHAR NOT NULL,
       FOREIGN KEY (email_id) REFERENCES users(email_id)
