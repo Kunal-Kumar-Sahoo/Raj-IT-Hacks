@@ -39,3 +39,10 @@ Developed by:
     pip install -r requirements.txt
     python3 ./src/backend/app.py
 ```
+### Some glimpses of the web-app
+<img src="readme-assets/WhatsApp Image 2023-03-21 at 07.55.21.jpeg">
+<img src="readme-assets/WhatsApp Image 2023-03-21 at 07.52.45.jpeg">
+<img src="readme-assets/WhatsApp Image 2023-03-21 at 07.53.24.jpeg">
+<img src="readme-assets/WhatsApp Image 2023-03-21 at 07.54.37.jpeg">
+<img src="readme-assets/WhatsApp Image 2023-03-21 at 07.55.01.jpeg">
+<img src="readme-assets/Screenshot from 2023-03-21 07-44-03.png">
