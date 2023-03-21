@@ -117,9 +117,13 @@ def collect_problems():
     documents = [document[0] for document in results]
     return [list(result) for result in results], documents
 
+def get_monetary_details(email_id):
+    query = f'SELECT funding, valuation, revenue from startup where email_id = "{email_id}"'
+    cursor.execute(query)
+    funding, valuation, revenue = cursor.fetchall()[0]
+    return funding, valuation, revenue
+
 
 if __name__ == '__main__':
-    list_, doc_ = collect_problems()
-    print(list_)
-    print(doc_)
+    get_monetary_details('manentia@manentia.com')
     
